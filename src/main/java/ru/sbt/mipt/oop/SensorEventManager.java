@@ -1,16 +1,18 @@
 package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.SensorEventType.*;
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
+//import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 
 public class SensorEventManager {
     LightEventHandler lightEventHandler;
     DoorEventHandler doorEventHandler;
+    AlarmEventHandler alarmEventHandler;
     SmartHome smartHome;
 
     public SensorEventManager(SmartHome smartHome) {
         lightEventHandler = new LightEventHandler();
         doorEventHandler = new DoorEventHandler();
+        alarmEventHandler = new AlarmEventHandler();
         this.smartHome = smartHome;
     }
 
@@ -24,6 +26,10 @@ public class SensorEventManager {
             if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
                 doorEventHandler.handleEvent(smartHome, event);
             }
+            if (event.getType() == ALARM_ACTIVATE || event.getType() == ALARM_DEACTIVATE) {
+                alarmEventHandler.handleEvent(smartHome, event);
+            }
+
             event = getNextSensorEvent();
         }
     }
