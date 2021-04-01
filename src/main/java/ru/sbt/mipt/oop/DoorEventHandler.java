@@ -2,8 +2,13 @@ package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
-public class DoorEventHandler implements EventHandler{
-    public void handleEvent(SmartHome smartHome, SensorEvent event) {
+public class DoorEventHandler implements EventHandler {
+    private SmartHome smartHome;
+
+    DoorEventHandler(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+    public void handleEvent(SensorEvent event) {
         // событие от двери
         for (Room room : smartHome.getRooms()) {
             for (Door door : room.getDoors()) {

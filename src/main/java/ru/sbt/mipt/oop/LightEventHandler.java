@@ -3,7 +3,13 @@ package ru.sbt.mipt.oop;
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
 public class LightEventHandler implements EventHandler {
-    public void handleEvent(SmartHome smartHome, SensorEvent event) {
+    private SmartHome smartHome;
+
+    LightEventHandler(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+
+    public void handleEvent(SensorEvent event) {
         // событие от источника света
         for (Room room : smartHome.getRooms()) {
             for (Light light : room.getLights()) {

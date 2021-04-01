@@ -16,16 +16,28 @@ public class Alarm {
     boolean correctCode(String otherCode) {
         return code.equals(otherCode);
     }
+
     public void activate(String code) {
         state.activate(code);
+    }
+
+    public boolean isActivated() {
+        return state instanceof ActivatedAlarmState;
     }
 
     public void deactivate(String code) {
         state.deactivate(code);
     }
 
+    public boolean isDeactivated() {
+        return state instanceof DeactivatedAlarmState;
+    }
+
     public void alert() {
         state.alert();
     }
 
+    public boolean isAlert() {
+        return state instanceof AlertAlarmState;
+    }
 }
