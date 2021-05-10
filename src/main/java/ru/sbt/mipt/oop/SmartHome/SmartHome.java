@@ -1,15 +1,15 @@
 package ru.sbt.mipt.oop.SmartHome;
 
+import ru.sbt.mipt.oop.alarm.Alarm;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome implements Actionable {
     Collection<Room> rooms;
-    Alarm alarm;
 
     public SmartHome() {
         rooms = new ArrayList<>();
-        alarm = new Alarm();
     }
 
     public SmartHome(Collection<Room> rooms) {

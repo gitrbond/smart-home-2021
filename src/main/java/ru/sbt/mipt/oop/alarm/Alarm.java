@@ -1,8 +1,13 @@
 package ru.sbt.mipt.oop.alarm;
 
 public class Alarm {
-    private AlarmState state = new DeactivatedAlarmState(this);
+    private AlarmState state;
     private String code;
+
+    public Alarm(String code) {
+        this.code = code;
+        state = new DeactivatedAlarmState(this);
+    }
 
     void setState(AlarmState state) {
         this.state = state;
