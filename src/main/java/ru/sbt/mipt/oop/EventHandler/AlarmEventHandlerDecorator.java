@@ -18,11 +18,21 @@ public class AlarmEventHandlerDecorator implements EventHandler {
 
     @Override
     public void handleEvent(SensorEvent event) {
-        if ((alarm.isActivated() || alarm.isAlert()) && (event.getType() != SensorEventType.ALARM_DEACTIVATE && event.getType() != SensorEventType.ALARM_ACTIVATE)) {
+        if (alarm.isDeactivated()) {
+            wrappee.handleEvent(event);
+        }
+        else if (event.getType() == SensorEventType.ALARM_DEACTIVATE || event.getType() == SensorEventType.ALARM_ACTIVATE) {
+            if (alarm.correctCode(event.getType().code)) {
+                wrappee.handleEvent(event);
+            }
+            else {
+                alarm.alert();
+                alertAlarmNotifier.sendNotification();
+            }
+        }
+        else {
             alarm.alert();
             alertAlarmNotifier.sendNotification();
         }
-        else
-            wrappee.handleEvent(event);
     }
 }

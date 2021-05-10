@@ -18,7 +18,7 @@ public class Alarm {
             code = newCode;
     }
 
-    boolean correctCode(String otherCode) {
+    public boolean correctCode(String otherCode) {
         return code.equals(otherCode);
     }
 

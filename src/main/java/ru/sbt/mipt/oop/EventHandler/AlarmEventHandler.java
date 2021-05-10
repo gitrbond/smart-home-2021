@@ -16,10 +16,10 @@ public class AlarmEventHandler implements EventHandler {
     @Override
     public void handleEvent(SensorEvent event) {
         if (event.getType() == ALARM_ACTIVATE) {
-            alarm.activate(event.getObjectId());
+            alarm.activate(event.getType().code);
         }
         if (event.getType() == ALARM_DEACTIVATE) {
-            alarm.deactivate(event.getObjectId());
+            alarm.deactivate(event.getType().code);
         }
     }
 }
