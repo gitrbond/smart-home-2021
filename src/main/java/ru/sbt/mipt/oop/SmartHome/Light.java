@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.SmartHome;
 
 public class Light implements Actionable {
     private boolean isOn;
@@ -23,7 +23,8 @@ public class Light implements Actionable {
 
     @Override
     public void execute(Action action) {
-        action.act(action);
+        //System.out.println("light id=" + id + " executing");
+        action.act(this);
     }
 
     /*@Override

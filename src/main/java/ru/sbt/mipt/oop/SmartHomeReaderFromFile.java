@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.SmartHome.SmartHome;
+
 public interface SmartHomeReaderFromFile {
-    public SmartHome readSmartHomeFromFile(String filePath);
+    SmartHome readSmartHomeFromFile(String filePath);
 }
