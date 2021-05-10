@@ -1,16 +1,20 @@
 package ru.sbt.mipt.oop;
 
-import java.io.IOException;
+import ru.sbt.mipt.oop.EventHandler.DoorEventHandler;
+import ru.sbt.mipt.oop.EventHandler.HallDoorEventHandler;
+import ru.sbt.mipt.oop.EventHandler.LightEventHandler;
+import ru.sbt.mipt.oop.SmartHome.SmartHome;
 
-import static ru.sbt.mipt.oop.SensorEventType.*;
+import java.util.Arrays;
 
 public class Application {
 
     public static void main(String... args) {
         // считываем состояние дома из файла
         SmartHome smartHome = new SmartHomeReaderFromJS().readSmartHomeFromFile("smart-home-1.js");
+        EventManager eventManager = new SmartHomeEventManager(Arrays.asList(new LightEventHandler(smartHome), new DoorEventHandler(smartHome), new HallDoorEventHandler(smartHome)));
+        SmartHomeRunner smartHomeRunner = new SmartHomeRunner(eventManager, new SmartHomeEventSource());
         // начинаем цикл обработки событий
-        SensorEventManager sensorEventManager = new SensorEventManager(smartHome);
-        sensorEventManager.SensorEventManagerLoop();
+        smartHomeRunner.runLoop();
     }
 }

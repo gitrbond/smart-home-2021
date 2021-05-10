@@ -1,5 +1,4 @@
-package ru.sbt.mipt.oop;
-import ru.sbt.mipt.oop.alarm.Alarm;
+package ru.sbt.mipt.oop.SmartHome;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +26,7 @@ public class SmartHome implements Actionable {
 
     @Override
     public void execute(Action action) {
-        action.act(action);
+        action.act(this);
         rooms.forEach(room -> room.execute(action));
     }
 }
