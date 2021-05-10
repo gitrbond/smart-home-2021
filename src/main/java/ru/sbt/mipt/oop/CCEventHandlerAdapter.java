@@ -1,17 +1,22 @@
 package ru.sbt.mipt.oop;
 
 import com.coolcompany.smarthome.events.CCSensorEvent;
+import ru.sbt.mipt.oop.EventHandler.EventHandler;
+
+import java.util.Map;
 
 public class CCEventHandlerAdapter implements com.coolcompany.smarthome.events.EventHandler {
-    private com.coolcompany.smarthome.events.EventHandler cCEventHandler;
+    private final EventHandler eventHandler;
+    private final Map<String, SensorEventType> tableOfEventCompliance;
 
-    CCEventHandlerAdapter(com.coolcompany.smarthome.events.EventHandler coolcompanyEventHandler) {
-        this.cCEventHandler = coolcompanyEventHandler;
+    CCEventHandlerAdapter(EventHandler eventHandler, Map<String, SensorEventType> tableOfEventCompliance) {
+        this.eventHandler = eventHandler;
+        this.tableOfEventCompliance = tableOfEventCompliance;
     }
 
     @Override
-    void handleEvent(CCSensorEvent event) {
-        //coolcompanyEventHandler.handleEvent(coolcompanyEventHandler);
+    public void handleEvent(CCSensorEvent event) {
+        eventHandler.handleEvent(new SensorEvent(tableOfEventCompliance.get(event.getEventType()), event.getObjectId()));
         System.out.println("Handling event");
     }
 }
