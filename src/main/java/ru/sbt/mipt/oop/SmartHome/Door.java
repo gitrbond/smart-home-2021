@@ -1,6 +1,6 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.SmartHome;
 
-public class Door {
+public class Door implements Actionable {
     private final String id;
     private boolean isOpen;
 
@@ -15,5 +15,11 @@ public class Door {
 
     public void setOpen(boolean open) {
         isOpen = open;
+    }
+
+    @Override
+    public void execute(Action action) {
+        //System.out.println("door id=" + id + " executing");
+        action.act(this);
     }
 }
