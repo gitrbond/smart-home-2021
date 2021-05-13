@@ -3,7 +3,12 @@ package ru.sbt.mipt.oop;
 import com.coolcompany.smarthome.events.SensorEventsManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import rc.RemoteControl;
+import rc.RemoteControlRegistry;
 import ru.sbt.mipt.oop.EventHandler.*;
+import ru.sbt.mipt.oop.RemoteControl.RCCommand;
+import ru.sbt.mipt.oop.RemoteControl.RemoteControlImpl;
+import ru.sbt.mipt.oop.RemoteControl.commands.*;
 import ru.sbt.mipt.oop.SmartHome.SmartHome;
 import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.AlertAlarmNotifier;
@@ -61,5 +66,24 @@ public class ApplicationConfiguration {
             sensorEventsManager.registerEventHandler(new CCEventHandlerAdapter(handler, map));
         }
         return sensorEventsManager;
+    }
+
+    @Bean
+    public RemoteControl createRemoteControl() {
+        Map<String, RCCommand> commandCodes = new HashMap<>();
+        commandCodes.put("A", new AlarmActivateCommand(createAlarm()));
+        commandCodes.put("B", new AlarmAlertCommand(createAlarm()));
+        commandCodes.put("C", new TurnOffAllLightsCommand(createSmartHome()));
+        commandCodes.put("D", new TurnOnAllLightsCommand(createSmartHome()));
+        commandCodes.put("1", new CloseHallDoorCommand(createSmartHome()));
+        commandCodes.put("2", new TurnOnHallLightsCommand(createSmartHome()));
+        return new RemoteControlImpl(commandCodes);
+    }
+
+    @Bean
+    public RemoteControlRegistry createRemoteControlRegistry() {
+        RemoteControlRegistry remoteControlRegistry = new RemoteControlRegistry();
+        remoteControlRegistry.registerRemoteControl(createRemoteControl(), "1");
+        return remoteControlRegistry;
     }
 }
