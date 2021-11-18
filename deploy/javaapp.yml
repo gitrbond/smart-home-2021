@@ -49,7 +49,7 @@
         state: directory
 
     - name: Clone app repository
-      shell: "cd /home/mftiedu/BRA && git clone --branch hometask-1 --single-branch https://github.com/gitrbond/smart-home-2021"
+      shell: "cd /home/mftiedu/BRA && git clone --branch hometask-1 --single-branch https://github.com/gitrbond/smart-home-2021" #works only with removing app the directory step
       #ansible.builtin.git:
       #  repo: "{{ repo_url }}"
       #  dest: "{{ app_dest }}/{{ repo_name }}"
