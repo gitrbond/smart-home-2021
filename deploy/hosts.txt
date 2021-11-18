@@ -1,3 +1,6 @@
+[all:vars]
+ansible_sudo_pass=cHONtic
+
 [centos_servers]
 centos8  ansible_host=194.87.57.31 virtual_domain=mywebserver.centos
 
