@@ -19,6 +19,8 @@
                 <configuration>
                     <testFailureIgnore>false</testFailureIgnore>
                     <properties>
+                        <maven.compiler.source>1.8</maven.compiler.source>
+                        <maven.compiler.target>1.8</maven.compiler.target>
                         <property>
                             <name>listener</name>
                             <value>io.qameta.allure.junit4.AllureJunit4</value>
