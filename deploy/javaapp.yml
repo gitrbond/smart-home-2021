@@ -40,6 +40,9 @@
         - "java-11-openjdk-devel"
       when: ansible_os_family == "RedHat"
     
+    - name: Remove app directory
+      shell: "rm -rf {{ app_dest }}"
+    
     - name: Create app directory 
       file:
         path: "{{ app_dest }}"
