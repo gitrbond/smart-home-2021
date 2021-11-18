@@ -1,0 +1,10 @@
+[centos_servers]
+centos8  ansible_host=194.87.57.31 virtual_domain=mywebserver.centos
+
+[debian_servers]
+debian10 ansible_host=194.87.107.68 virtual_domain=mywebserver.debian
+
+[linux_servers:children]
+centos_servers
+debian_servers
+

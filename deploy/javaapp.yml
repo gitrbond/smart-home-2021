@@ -1,0 +1,66 @@
+---
+- hosts: all
+  #gather_facts: no
+  become: yes
+  vars:
+    app_dest: /home/mftiedu/BRA
+    repo_name: smart-home-2021
+    repo_url: https://github.com/gitrbond/smart-home-2021
+    packages:
+      - git
+      #- python3
+      #- default-jdk
+      #- oracle-java8-installer
+      #- oracle-java8-set-default
+      - maven
+  tasks:
+    - name: Run apt-update
+      apt: update_cache=yes
+      when: ansible_os_family == "Debian"
+
+    - name: Update yum
+      yum: update_cache=yes
+      when: ansible_os_family == "RedHat"
+
+    - name: Install packages on Debian  
+      apt: 
+        name: "{{ item }}"
+        state: present
+      with_items: 
+        - "{{ packages }}"
+        - "openjdk-11-jdk"
+      when: ansible_os_family == "Debian"
+
+    - name: Install packages on CentOS
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ packages }}"
+        - "java-11-openjdk-devel"
+      when: ansible_os_family == "RedHat"
+    
+    - name: Create app directory 
+      file:
+        path: "{{ app_dest }}"
+        state: directory
+
+    - name: Clone app repository
+      #shell: "cd /home/mftiedu/BRA && git clone --branch hometask-1 --single-branch https://github.com/gitrbond/smart-home-2021"
+      ansible.builtin.git:
+        repo: "{{ repo_url }}"
+        dest: "{{ app_dest }}/{{ repo_name }}"
+        single_branch: yes
+        version: hometask-1
+        force: yes
+    
+    - name: Building app to /target folder
+      shell: "cd {{ app_dest }}/{{ repo_name}} && mvn clean install"
+
+    #- name: Making unit tests
+        #shell: mvn test
+    - name: make run output file
+      shell: "cd {{ app_dest }} && echo test > out.txt && chmod 0777 out.txt"
+
+    - name: Run app
+      shell: "cd {{ app_dest }}/{{ repo_name }} && mvn exec:java -Dexec.mainClass=ru.sbt.mipt.oop.Application -Dexec.outputFile={{ app_dest }}/out.txt &> {{ app_dest }}/out.txt"
