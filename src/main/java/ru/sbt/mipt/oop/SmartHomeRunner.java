@@ -16,8 +16,7 @@ public class SmartHomeRunner {
     public void runLoop() {
         SensorEvent event = eventSource.getNextSensorEvent();
         while (event != null) {
-            //System.out.println("Got event: " + event);
-            logger.log(Level.INFO,"Got event: " + event);
+            logger.log(Level.INFO, "Got event: " + event);
             eventManager.manageEvent(event);
             event = eventSource.getNextSensorEvent();
         }

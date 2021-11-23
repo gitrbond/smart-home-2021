@@ -21,8 +21,7 @@ public class SmartHomeReaderFromJS implements SmartHomeReaderFromFile {
             return gson.fromJson(reader, SmartHome.class);
         }
         catch (IOException e) {
-            //System.out.println(e);
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, () -> e.getMessage());
             return null;
         }
     }

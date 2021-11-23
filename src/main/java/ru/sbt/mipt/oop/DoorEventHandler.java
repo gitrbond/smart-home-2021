@@ -22,13 +22,11 @@ public class DoorEventHandler implements EventHandler{
                 if (door.getId().equals(event.getObjectId())) {
                     if (event.getType() == DOOR_OPEN) {
                         door.setOpen(true);
-                        //System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
-                        logger.log(Level.INFO,"Door " + door.getId() + " in room " + room.getName() + " was opened.");
+                        logger.log(Level.INFO, () -> "Door " + door.getId() + " in room " + room.getName() + " was opened.");
                     }
                     if (event.getType() == DOOR_CLOSED) {
                         door.setOpen(false);
-                        //System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
-                        logger.log(Level.INFO,"Door " + door.getId() + " in room " + room.getName() + " was closed.");
+                        logger.log(Level.INFO, () -> "Door " + door.getId() + " in room " + room.getName() + " was closed.");
                     }
                 }
             }
