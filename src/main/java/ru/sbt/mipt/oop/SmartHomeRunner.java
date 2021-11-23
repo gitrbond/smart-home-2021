@@ -1,6 +1,10 @@
 package ru.sbt.mipt.oop;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class SmartHomeRunner {
+    private static final Logger logger = Logger.getLogger(SmartHomeRunner.class.getName());
     private final EventManager eventManager;
     private final SmartHomeEventSource eventSource;
 
@@ -12,7 +16,8 @@ public class SmartHomeRunner {
     public void runLoop() {
         SensorEvent event = eventSource.getNextSensorEvent();
         while (event != null) {
-            System.out.println("Got event: " + event);
+            //System.out.println("Got event: " + event);
+            logger.log(Level.INFO,"Got event: " + event);
             eventManager.manageEvent(event);
             event = eventSource.getNextSensorEvent();
         }

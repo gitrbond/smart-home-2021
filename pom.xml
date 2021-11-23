@@ -68,7 +68,10 @@
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
                 <configuration>
+                    <!--
                     <reportVersion>2.6.0</reportVersion>
+                    -->
+                    <allureDownloadUrl>https://github.com/allure-framework/allure2/releases/download/2.14.0/allure-2.14.0.zip</allureDownloadUrl>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,8 +1,12 @@
 package ru.sbt.mipt.oop;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
 public class LightEventHandler implements EventHandler {
+    private static final Logger logger = Logger.getLogger(LightEventHandler.class.getName());
     private final SmartHome smartHome;
 
     public LightEventHandler(SmartHome smartHome) {
@@ -17,10 +21,12 @@ public class LightEventHandler implements EventHandler {
                 if (light.getId().equals(event.getObjectId())) {
                     if (event.getType() == LIGHT_ON) {
                         light.setOn(true);
-                        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
+                        //System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
+                        logger.log(Level.INFO,"Light " + light.getId() + " in room " + room.getName() + " was turned on.");
                     } else {
                         light.setOn(false);
-                        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
+                        //System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
+                        logger.log(Level.INFO,"Light " + light.getId() + " in room " + room.getName() + " was turned off.");
                     }
                 }
             }

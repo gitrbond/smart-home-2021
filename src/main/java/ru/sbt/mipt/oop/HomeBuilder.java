@@ -9,8 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HomeBuilder {
+    private static final Logger logger = Logger.getLogger(HomeBuilder.class.getName());
 
     public static void main(String[] args) throws IOException {
         Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true)),
@@ -28,7 +31,9 @@ public class HomeBuilder {
         SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String jsonString = gson.toJson(smartHome);
-        System.out.println(jsonString);
+
+        //System.out.println(jsonString);
+
         Path path = Paths.get("output.js");
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(jsonString);

@@ -1,8 +1,12 @@
 package ru.sbt.mipt.oop;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class HallDoorEventHandler implements EventHandler {
+    private static final Logger logger = Logger.getLogger(HallDoorEventHandler.class.getName());
     private final SmartHome smartHome;
 
     public HallDoorEventHandler(SmartHome smartHome) {
@@ -13,7 +17,8 @@ public class HallDoorEventHandler implements EventHandler {
     public void handleEvent(SensorEvent event) {
         // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
         // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-        System.out.println("Turning lights off at whole home");
+        //System.out.println("Turning lights off at whole home");
+        logger.log(Level.INFO,"Turning lights off at whole home");
         if(event.getType().equals(DOOR_CLOSED) && findRoomByDoorId(event.getObjectId()).getName().equals("hall")) {
             for (Room room : smartHome.rooms) {
                 for (Light light : room.getLights()) {
@@ -33,6 +38,6 @@ public class HallDoorEventHandler implements EventHandler {
                 }
             }
         }
-        throw new RuntimeException("Door with id=" + doorId + "is not found in home");
+        throw new DoorIdNotFoundException("Door with id=" + doorId + "is not found in home");
     }
 }
