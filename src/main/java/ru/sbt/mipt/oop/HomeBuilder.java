@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HomeBuilder {
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true)),
                 Arrays.asList(new Door(false, "1")),
                 "kitchen");
@@ -35,5 +35,5 @@ public class HomeBuilder {
             writer.write(jsonString);
         }
     }
-
+    */
 }

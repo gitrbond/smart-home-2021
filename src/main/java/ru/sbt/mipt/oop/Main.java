@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop;
 
 import java.util.Arrays;
 
-public class Application {
+public class Main {
 
     public static void main(String... args) {
         // считываем состояние дома из файла
